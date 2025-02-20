@@ -1,25 +1,10 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+import { drivers, teams } from "./database/database";
 
 const server = fastify({ logger: true });
 
 server.register(cors, { origin: "*" });
-
-const teams = [
-  { id: 1, name: "Ferrari", country: "Italy" },
-  { id: 2, name: "Mercedes", country: "Germany" },
-  { id: 3, name: "Red Bull Racing", country: "Austria" },
-  { id: 4, name: "McLaren", country: "United Kingdom" },
-];
-
-const drivers = [
-  { id: 1, name: "Lewis Hamilton", team: "Ferrari" },
-  { id: 2, name: "George Russell", team: "Mercedes" },
-  { id: 3, name: "Max Verstappen", team: "Red Bull Racing" },
-  { id: 4, name: "Lando Norris", team: "McLaren" },
-  { id: 5, name: "Charles Leclerc", team: "Ferrari" },
-  { id: 6, name: "Valtteri Bottas", team: "Mercedes" },
-];
 
 server.get("/teams", async (request, response) => {
   response.type("application/json").code(200);
