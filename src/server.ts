@@ -26,6 +26,26 @@ server.get("/drivers", async (request, response) => {
   return { drivers };
 });
 
+interface DriverParams {
+  id: string;
+}
+
+server.get<{ Params: DriverParams }>(
+  "/drivers/:id",
+  async (request, response) => {
+    const driver = drivers.find(
+      (driver) => driver.id === parseInt(request.params.id)
+    );
+    if (driver) {
+      response.type("application/json").code(200);
+      return { driver };
+    } else {
+      response.type("application/json").code(404);
+      return { message: "Driver not found" };
+    }
+  }
+);
+
 server.listen({ port: 3000 }, () => {
   console.log(`Server listening`);
 });
